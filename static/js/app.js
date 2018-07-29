@@ -13,10 +13,8 @@ function displayTable(reportdata){
   });
 }
 
-displayTable(tableData)
 
-
-var filters = ["datetime", "city", "state", "country", "shape"];
+//Filter Table Data
 
 var filterButton = d3.select("#filter-btn");
 
@@ -25,18 +23,18 @@ filterButton.on("click", function() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
 
+    var filters = ["datetime", "city", "state", "country", "shape"];
     filters.map(filter => {
 
         var inputElement = d3.select("#" + filter).node().value;
 
-        var filteredData = tableData.filter(report => report[filter] === inputElement);
+        if (inputElement !== ""){
+            var filteredData = data.filter(report => report[filter] === inputElement);
+        displayTable(filteredData);
+        }
+        else {
+        //displayTable(tableData);
+        }
     });
     
-    if (inputElement !==0){
-        displayTable(filteredData);
-    }
-    else{
-        displayTable(tableData);
-    }
-
 });
